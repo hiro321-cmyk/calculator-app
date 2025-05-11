@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dairy Product Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef6ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      width: 400px;
+    }
+    h2 {
+      text-align: center;
+      color: #0056b3;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select, input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Dairy Product Calculator</h2>
+
+    <label for="product">Choose Product:</label>
+    <select id="product">
+      <option value="curd">Curd</option>
+      <option value="paneer">Paneer</option>
+    </select>
+
+    <label for="amount">Enter Amount (₹):</label>
+    <input type="number" id="amount" placeholder="Enter rupees" />
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const product = document.getElementById("product").value;
+      const amount = parseFloat(document.getElementById("amount").value);
+      const resultDiv = document.getElementById("result");
+
+      if (isNaN(amount) || amount <= 0) {
+        resultDiv.innerText = "Please enter a valid amount.";
+        return;
+      }
+
+      if (product === "curd") {
+        const price500g = 75;
+        const price1kg = 150;
+        let grams = 0;
+
+        if (amount <= price500g) {
+          grams = (amount / price500g) * 500;
+        } else if (amount <= price1kg) {
+          grams = (amount / price1kg) * 1000;
+        } else {
+          grams = (amount / price1kg) * 1000;
+        }
+
+        resultDiv.innerText = `For ₹${amount}, you get approximately ${grams.toFixed(2)} grams of curd.`;
+
+      } else if (product === "paneer") {
+        const price1kg = 800;
+        let grams = (amount / price1kg) * 1000;
+        resultDiv.innerText = `For ₹${amount}, you get approximately ${grams.toFixed(2)} grams of paneer.`;
+      }
+    }
+  </script>
+</body>
+</html>
